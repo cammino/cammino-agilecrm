@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cammino_Agilecrm>
+            <version>0.1.0</version>
+        </Cammino_Agilecrm>
+    </modules>
+    <global>
+        <blocks>
+            <agilecrm>
+                <class>Cammino_Agilecrm_Block</class>
+            </agilecrm>
+        </blocks>
+        
+        <models>
+            <agilecrm>
+                <class>Cammino_Agilecrm_Model</class>
+            </agilecrm>
+        </models>
+
+        <events>
+
+            <newsletter_subscriber_save_commit_after>
+                <observers>
+                    <agilecrm_observer_subscriber>
+                        <type>singleton</type>
+                        <class>Cammino_Agilecrm_Model_Observer</class>
+                        <method>saveSubscriber</method>
+                    </agilecrm_observer_subscriber>
+                </observers>
+            </newsletter_subscriber_save_commit_after>
+
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <agilecrm_observer_tracking>
+                        <type>singleton</type>
+                        <class>Cammino_Agilecrm_Model_Observer</class>
+                        <method>injectTracking</method>
+                    </agilecrm_observer_tracking>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <agilecrm_observer_order>
+                        <type>singleton</type>
+                        <class>Cammino_Agilecrm_Model_Observer</class>
+                        <method>injectOrder</method>
+                    </agilecrm_observer_order>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            
+        </events>
+
+    </global>
+
+    <frontend>
+        <routers>
+            <agilecrm>
+                <use>standard</use>
+                <args>
+                    <module>Cammino_Agilecrm</module>
+                    <frontName>agilecrm</frontName>
+                </args>
+            </agilecrm>
+        </routers>
+    </frontend>
+</config>
