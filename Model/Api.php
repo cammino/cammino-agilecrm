@@ -14,6 +14,13 @@ class Cammino_Agilecrm_Model_Api extends Mage_Core_Model_Abstract {
             $product = Mage::getModel('catalog/product')->load($item->getProductId());
             $tags[] = $product->getUrlKey();
             $note .= '|' . intval($item->getQtyOrdered()) . 'x ' . $product->getName() . ' \n';
+
+            $categories = $product->getCategoryIds();
+
+            foreach( $categories as $categoryId ) {
+                $category = Mage::getModel( 'catalog/category' )->load( $categoryId );
+                $tags[] = $category->getUrlKey();
+            }
         }
 
         return '<script type="text/javascript">
